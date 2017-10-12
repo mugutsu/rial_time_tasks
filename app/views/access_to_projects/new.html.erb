@@ -1,0 +1,10 @@
+<h2>Добавление пользователя:</h2>
+<%= form_with(model: [ @project, @project.access_to_project.build ], local: true) do |form| %>
+    <p>
+        <%= form.label :user_id, 'Пользователь' %>
+        <%= form.select(:user_id, User.list(current_user)) %>
+    </p>
+    <p>
+        <%= form.submit 'Добавить' %>
+    </p>
+<% end %>

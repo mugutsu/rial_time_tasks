@@ -1,0 +1,29 @@
+<%= link_to '<- Назад к списку', projects_path %>
+<h1><%= @project.name %></h1>
+<p><%= @project.comment %></p>
+<p>
+    <%= link_to 'Редактировать', edit_project_path(@project) %>
+</p>
+<h2>Доступ</h2>
+<table>
+    <tr>
+        <td><%=current_user.email %></th>
+        <td></td>
+    </tr>
+    <% @project.access_to_project.each do |access| %>
+        <tr>
+            <td><%=access.user.email %></th>
+            <td>
+                <%= link_to 'Удалить', [access.project, access],
+                   method: :delete,
+                   data: { confirm: 'Вы уверены?' } %>
+            </td>
+        </tr>
+    <% end %>
+    <tr>
+        <td colspan="2">
+            <%= link_to 'Добавить', new_project_access_to_project_path(@project) %>
+        </td>
+    </tr>
+</table>
+<!-- project_access_to_project_path(access) -->

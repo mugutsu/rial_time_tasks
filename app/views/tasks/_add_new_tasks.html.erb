@@ -1,0 +1,17 @@
+<%= form_with(model: [ @project, @project.task.build ], local: true) do |form| %>
+    <table>
+        <tr>
+            <td>
+                <%= form.label :priority, 'Приоритет' %>
+                <%= form.select(:priority, [['Обычный',0],['Неотложный',1]]) %>
+            </td>
+            <td>
+                <%= form.label :name, 'Задача' %>
+                <%= form.text_field :name %>
+            </td>
+            <td>
+                <%= form.submit 'Сохранить'%>
+            </td>
+        </tr>
+    </table>
+<% end %>

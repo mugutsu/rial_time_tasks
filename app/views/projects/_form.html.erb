@@ -1,0 +1,25 @@
+<%= form_with model: @project, local: true do |form| %>
+    <% if @project.errors.any? %>
+        <div id="errors-save">
+            <h2>
+                <%=pluralize(@project.errors.count, "error") %> не дают сохранять.
+            </h2>
+            <ul>
+                <% @project.errors.full_messages.each do |massage| %>
+                    <li><%= massage %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <p>
+        <%= form.label :name, 'Название' %>
+        <%= form.text_field :name %>
+    </p>
+    <p>
+        <%= form.label :comment, 'Комментарий' %>
+        <%= form.text_area :comment %>
+    </p>
+    <p>
+        <%= form.submit 'Сохранить'%>
+    </p>
+<% end %>

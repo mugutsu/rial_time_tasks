@@ -1,0 +1,43 @@
+<h1>Задачи по проекту "<%=@project.name %>"</h1>
+<%= link_to '<- Назад к проектам', projects_path %>
+<br>
+<br>
+<%= render 'add_new_tasks' %>
+<table>
+    <% @project.task.each do |task| %>
+        <% if task.id
+            @model = Task.find(task.id)
+            %>
+            <tr>
+                <td>
+                    <%= form_with model: @model, url: tasks_update_done_path, :method => :post, local: true do |form| %>
+                        <%= form.hidden_field :id %>
+                        <%= form.check_box :done %>
+                    <% end %>
+                </td>
+                <td>
+                    <%=Task.priority(task.priority)%>
+                </td>
+                <td><%=task.name %></td>
+                <td>
+                    <%= link_to 'Удалить', [task.project, task],
+                       method: :delete,
+                       data: { confirm: 'Вы уверены что хотите удалить задачу?' } %>
+                </td>
+            </tr>
+        <% end %>
+    <% end %>
+</table>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='checkbox']").change(function() {
+            var form = $(this).parents('form');
+            var url = form.attr('action');
+            var method = form.attr('method');
+            send_ajax(url,method,form.serialize(),"",function (result) {
+
+            });
+            return false;
+        });
+    })
+</script>
